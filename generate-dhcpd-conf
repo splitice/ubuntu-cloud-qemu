@@ -63,7 +63,7 @@ def generate_conf(intf_name : str, dns : Iterable[str]) -> str:
         dhcp_intf = intf_name,
         dns = ' '.join(dns),
         gateway = droute['gateway'],
-        host_addr = os.environ.get["VMIP"],
+        host_addr = os.environ["VMIP"],
         hostname = socket.gethostname(),
         subnet = host_addr.network.netmask,
     )
