@@ -61,7 +61,8 @@ ip link set dev $QEMU_BRIDGE up
 # Finally, start our DHCPD server
 udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 
-ip addr add 172.17.0.1/24 dev qemubr0
+ip addr add 172.17.0.4/24 dev qemubr0
+ip route add default via 172.17.0.1 dev qemubr0
 
 # And run the VM! A brief explaination of the options here:
 # -enable-kvm: Use KVM for this VM (much faster for our case).
