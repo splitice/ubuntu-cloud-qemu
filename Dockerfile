@@ -1,5 +1,7 @@
 FROM debian:buster-20190228-slim
 
+COPY prepare.sh /run/
+
 RUN apt-get update && apt-get -y upgrade && \
     apt-get --no-install-recommends -y install \
         iproute2 \
@@ -7,7 +9,7 @@ RUN apt-get update && apt-get -y upgrade && \
         python3 \
         qemu-system-x86 \
         udhcpd \
-    && bash prepare.sh \
+    && bash /run/prepare.sh \
     && apt-get clean
 
 COPY generate-dhcpd-conf /run/
