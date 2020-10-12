@@ -11,9 +11,6 @@ if [ ! -f "$user_data" ]; then
 password: asdfqwer
 chpasswd: { expire: False }
 ssh_pwauth: True
-packages:
- - python
- - sudo
 EOF
   cloud-localds "$user_data" user-data
 fi
