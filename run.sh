@@ -36,6 +36,9 @@ function default_intf() {
         jq -r '.[] | select(.dst == "default") | .dev'
 }
 
+our_ip=$(ip addr show dev eth0 | grep inet | awk '{print $2}' |  head -n1)
+route_ip=$(ip route | grep default | head -n1 | awk '{print $3}')
+
 # First step, we run the things that need to happen before we start mucking
 # with the interfaces. We start by generating the DHCPD config file based
 # on our current address/routes. We "steal" the container's IP, and lease
@@ -61,8 +64,12 @@ ip link set dev $QEMU_BRIDGE up
 # Finally, start our DHCPD server
 udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 
-ip addr add 172.17.0.4/24 dev qemubr0
-ip route add default via 172.17.0.1 dev qemubr0
+
+ip addr
+ip route 
+
+ip addr add $our_ip dev qemubr0
+ip route add default via $route_ip dev qemubr0
 
 if [[ -e /dev/kvm ]]; then
     additional="-enable-kvm -cpu host"
