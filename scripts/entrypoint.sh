@@ -15,13 +15,17 @@ EOF
   cloud-localds "$user_data" user-data
 fi
 
+ip link add br0 type bridge ; ifconfig br0 up &
+macaddress=$(printf 'DE:AD:BE:EF:%02X:%02X\n' $((RANDOM%256)) $((RANDOM%256)))
+
 qemu-system-x86_64 \
   -drive "file=${img},format=qcow2" \
   -drive "file=${user_data},format=raw" \
   -device rtl8139,netdev=net0 \
   -m 2G \
   -netdev user,id=net0 \
+  -device e1000,netdev=net1,mac=$macaddress -netdev tap,id=net1 \
   -serial mon:stdio \
   -smp 2 \
-  -vga virtio \
+  -nographic \
 ;
