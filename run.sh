@@ -46,6 +46,7 @@ default_dev=`default_intf`
 # Now we start modifying the networking configuration. First we clear out
 # the IP address of the default device (will also have the side-effect of
 # removing the default route)
+ip route
 ip addr flush dev $default_dev
 
 # Next, we create our bridge, and add our container interface to it.

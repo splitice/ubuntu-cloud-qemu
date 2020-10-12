@@ -1,6 +1,6 @@
 chmod +x /scripts/*
 
-apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass
+apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano
 
 # This is already in qcow2 format.
 img=ubuntu-18.04-server-cloudimg-amd64.img
