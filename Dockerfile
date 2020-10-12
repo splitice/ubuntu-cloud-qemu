@@ -6,4 +6,4 @@ COPY setup /setup
 RUN apt-get update && \
     bash setup/prepare-qemu.sh
 
-ENTRYPOINT ["/bin/bash", "/scripts/entrypoint.sh"]
+CMD ["/bin/bash", "/scripts/entrypoint.sh"]
