@@ -67,6 +67,10 @@ udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 ip addr add 172.17.0.4/24 dev qemubr0
 ip route add default via 172.17.0.1 dev qemubr0
 
+if [[ -f /dev/kvm ]]; then
+    additional="-enable-kvm -cpu host"
+fi
+
 # And run the VM! A brief explaination of the options here:
 # -enable-kvm: Use KVM for this VM (much faster for our case).
 # -nographic: disable SDL graphics.
@@ -78,4 +82,4 @@ exec qemu-system-x86_64 -nographic -serial mon:stdio \
     "$@" \
     -drive format=qcow2,file=/image \
     -drive "file=${user_data},format=raw" \
-    -cpu host -smp $(nproc)
+    -smp $(nproc) $additional
