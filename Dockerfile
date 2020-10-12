@@ -7,7 +7,7 @@ RUN apt-get update && apt-get -y upgrade && \
         python3 \
         qemu-system-x86 \
         udhcpd \
-    && bash prepare.sh &&
+    && bash prepare.sh \
     && apt-get clean
 
 COPY generate-dhcpd-conf /run/
