@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-img=/img
-
 user_data=user-data.img
 if [ ! -f "$user_data" ]; then
   # For the password.

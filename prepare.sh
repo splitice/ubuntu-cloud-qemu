@@ -12,4 +12,4 @@ if [ ! -f "$img" ]; then
   qemu-img resize "$img" +12G
 fi
 
-mv ubuntu-18.04-server-cloudimg-amd64.img /img
+mv ubuntu-18.04-server-cloudimg-amd64.img /image
