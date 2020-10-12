@@ -39,6 +39,8 @@ function default_intf() {
 our_ip=$(ip addr show dev eth0 | grep inet | awk '{print $2}' |  head -n1)
 route_ip=$(ip route | grep default | head -n1 | awk '{print $3}')
 
+echo "Route $our_ip -> $route_ip"
+
 # First step, we run the things that need to happen before we start mucking
 # with the interfaces. We start by generating the DHCPD config file based
 # on our current address/routes. We "steal" the container's IP, and lease
