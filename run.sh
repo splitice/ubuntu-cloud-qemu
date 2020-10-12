@@ -77,4 +77,5 @@ exec qemu-system-x86_64 -nographic -serial mon:stdio \
     -nic tap,id=qemu0,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN \
     "$@" \
     -drive format=qcow2,file=/image \
-    -drive "file=${user_data},format=raw"
+    -drive "file=${user_data},format=raw" \
+    -cpu host -smp $(nproc)
