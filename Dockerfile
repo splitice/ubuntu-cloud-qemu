@@ -1,9 +1,23 @@
-FROM ubuntu:latest
+FROM debian:buster-20190228-slim
 
-COPY scripts /scripts
-COPY setup /setup
+RUN apt-get update && apt-get -y upgrade && \
+    apt-get --no-install-recommends -y install \
+        iproute2 \
+        jq \
+        python3 \
+        qemu-system-x86 \
+        udhcpd \
+    && bash prepare.sh &&
+    && apt-get clean
 
-RUN apt-get update && \
-    bash setup/prepare-qemu.sh
+COPY generate-dhcpd-conf /run/
+COPY qemu-ifdown /run/
+COPY qemu-ifup /run/
+COPY run.sh /run/
 
-ENTRYPOINT ["/bin/bash", "/scripts/entrypoint.sh"]
+VOLUME /image
+
+ENTRYPOINT ["/run/run.sh"]
+
+# Mostly users will probably want to configure memory usage.
+CMD ["-m", "512M"]

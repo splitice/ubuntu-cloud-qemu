@@ -1,4 +1,6 @@
-img=ubuntu-18.04-server-cloudimg-amd64.img
+#!/usr/bin/env bash
+
+img=/img
 
 user_data=user-data.img
 if [ ! -f "$user_data" ]; then
@@ -40,7 +42,7 @@ function default_intf() {
 # with the interfaces. We start by generating the DHCPD config file based
 # on our current address/routes. We "steal" the container's IP, and lease
 # it to the VM once it starts up.
-/run/generate-dhcpd-conf $QEMU_BRIDGE > $DHCPD_CONF_FILE
+/run/generate-dhcpd-conf $QEMU_BRIDGE > $DHCPD_CONF_FILE 
 default_dev=`default_intf`
 
 # Now we start modifying the networking configuration. First we clear out
@@ -60,15 +62,14 @@ ip link set dev $QEMU_BRIDGE up
 # Finally, start our DHCPD server
 udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 
-
-qemu-system-x86_64 \
-  -drive "file=${img},format=qcow2" \
-  -drive "file=${user_data},format=raw" \
-  -device rtl8139,netdev=net0 \
-  -m 2G \
-  -netdev user,id=net0 \
-  -device tap,id=qemu0,script=/scripts/qemu-ifup \
-  -serial mon:stdio \
-  -smp 2 \
-  -nographic \
-;
+# And run the VM! A brief explaination of the options here:
+# -enable-kvm: Use KVM for this VM (much faster for our case).
+# -nographic: disable SDL graphics.
+# -serial mon:stdio: use "monitored stdio" as our serial output.
+# -nic: Use a TAP interface with our custom up/down scripts.
+# -drive: The VM image we're booting.
+exec qemu-system-x86_64 -nographic -serial mon:stdio \
+    -nic tap,id=qemu0,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN \
+    "$@" \
+    -drive format=qcow2,file=/image
+    -drive "file=${user_data},format=raw" \

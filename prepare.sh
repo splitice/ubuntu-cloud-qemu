@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 chmod +x /scripts/*
 
 apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq
@@ -13,3 +11,5 @@ if [ ! -f "$img" ]; then
   # https://superuser.com/questions/1022019/how-to-increase-size-of-an-ubuntu-cloud-image
   qemu-img resize "$img" +12G
 fi
+
+mv ubuntu-18.04-server-cloudimg-amd64.img /img
