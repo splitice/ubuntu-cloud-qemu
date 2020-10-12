@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install -y cloud-image-utils qemu
+apt-get install -y cloud-image-utils qemu qemu-system
 
 # This is already in qcow2 format.
 img=ubuntu-18.04-server-cloudimg-amd64.img
