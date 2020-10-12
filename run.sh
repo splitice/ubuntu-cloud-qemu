@@ -67,7 +67,7 @@ udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 ip addr add 172.17.0.4/24 dev qemubr0
 ip route add default via 172.17.0.1 dev qemubr0
 
-if [[ -f /dev/kvm ]]; then
+if [[ -e /dev/kvm ]]; then
     additional="-enable-kvm -cpu host"
 fi
 
