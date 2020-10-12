@@ -17,8 +17,6 @@ COPY qemu-ifdown /run/
 COPY qemu-ifup /run/
 COPY run.sh /run/
 
-VOLUME /image
-
 ENTRYPOINT ["/run/run.sh"]
 
 # Mostly users will probably want to configure memory usage.
