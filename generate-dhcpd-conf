@@ -21,7 +21,7 @@ end   {host_addr}
 # too many addresses
 max_leases 1
 
-interface {dhcp_intf}
+interface tap0
 
 option dns      {dns}
 option router   {gateway}
