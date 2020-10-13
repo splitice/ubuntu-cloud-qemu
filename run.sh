@@ -13,7 +13,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 
-echo <<EOF
+cat <<- EOF > network-config-v2.yaml
 version: 2
 ethernets:
     ens3:
@@ -26,7 +26,7 @@ ethernets:
           addresses:
             - 8.8.8.8
             - 8.8.4.4
-EOF > network-config-v2.yaml
+EOF
   cloud-localds --network-config=network-config-v2.yaml "$user_data" user-data
 fi
 
