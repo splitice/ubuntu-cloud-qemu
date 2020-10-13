@@ -11,6 +11,9 @@ if [ ! -f "$user_data" ]; then
 password: asdfqwer
 chpasswd: { expire: False }
 ssh_pwauth: True
+manage_resolv_conf: true
+resolv_conf:
+  nameservers: ['8.8.4.4', '8.8.8.8']
 EOF
 
 cat <<- EOF > network-config-v2.yaml
