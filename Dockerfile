@@ -12,7 +12,6 @@ RUN apt-get update && apt-get -y upgrade && \
     && bash /run/prepare.sh \
     && apt-get clean
 
-COPY generate-dhcpd-conf /run/
 COPY qemu-ifdown /run/
 COPY qemu-ifup /run/
 COPY run.sh /run/

@@ -12,7 +12,22 @@ password: asdfqwer
 chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
-  cloud-localds "$user_data" user-data
+
+echo <<EOF
+version: 2
+ethernets:
+    ens3:
+        dhcp4: false
+        dhcp6: false
+        addresses:
+          - {VMIP}/24
+        gateway4: 172.17.0.1
+        nameservers:
+          addresses:
+            - 8.8.8.8
+            - 8.8.4.4
+EOF > network-config-v2.yaml
+  cloud-localds --network-config=network-config-v2.yaml "$user_data" user-data
 fi
 
 
@@ -28,9 +43,6 @@ DUMMY_DHCPD_IP='10.0.0.1'
 QEMU_IFUP='/run/qemu-ifup'
 QEMU_IFDOWN='/run/qemu-ifdown'
 
-# The name of the dhcpd config file we make
-DHCPD_CONF_FILE='dhcpd.conf'
-
 function default_intf() {
     ip -json route show |
         jq -r '.[] | select(.dst == "default") | .dev'
@@ -45,7 +57,6 @@ echo "Route $our_ip -> $route_ip"
 # with the interfaces. We start by generating the DHCPD config file based
 # on our current address/routes. We "steal" the container's IP, and lease
 # it to the VM once it starts up.
-/run/generate-dhcpd-conf $QEMU_BRIDGE > $DHCPD_CONF_FILE 
 default_dev=`default_intf`
 
 # Now we start modifying the networking configuration. First we clear out
@@ -62,9 +73,6 @@ ip link set dev $default_dev master $QEMU_BRIDGE
 # and running.
 ip link set dev $default_dev up
 ip link set dev $QEMU_BRIDGE up
-
-# Finally, start our DHCPD server
-udhcpd -I $DUMMY_DHCPD_IP -f $DHCPD_CONF_FILE &
 
 
 ip addr
