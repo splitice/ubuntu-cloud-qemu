@@ -99,4 +99,4 @@ exec qemu-system-x86_64 -nographic -serial mon:stdio \
     "$@" \
     -drive format=qcow2,file=/image \
     -drive "file=${user_data},format=raw" \
-    -smp $(nproc) $additional
+    -smp 6 $additional

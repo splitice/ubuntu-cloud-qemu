@@ -19,4 +19,4 @@ COPY run.sh /run/
 ENTRYPOINT ["/run/run.sh"]
 
 # Mostly users will probably want to configure memory usage.
-CMD ["-m", "1G"]
+CMD ["-m", "512M"]
