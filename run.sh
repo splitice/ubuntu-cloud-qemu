@@ -20,7 +20,7 @@ ethernets:
         dhcp4: false
         dhcp6: false
         addresses:
-          - {VMIP}/24
+          - ${VMIP}/24
         gateway4: 172.17.0.1
         nameservers:
           addresses:
