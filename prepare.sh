@@ -1,6 +1,8 @@
 chmod +x /scripts/*
 
-apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip python-scapy
+apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip 
+
+pip install scapy
 
 # This is already in qcow2 format.
 if [ ! -f "/image" ]; then
