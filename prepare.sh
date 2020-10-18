@@ -1,8 +1,8 @@
 chmod +x /scripts/*
 
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
-apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip nodejs
+apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip nodejs git-core curl build-essential openssl libssl-dev python
 
 pip install scapy
 
