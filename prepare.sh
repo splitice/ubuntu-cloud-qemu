@@ -1,6 +1,8 @@
 chmod +x /scripts/*
 
-apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip 
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+apt-get install -y cloud-image-utils qemu qemu-system net-tools iproute2 ifupdown udhcpd jq openssh-client iputils-ping ansible sshpass tcpdump nano procps python-pip nodejs
 
 pip install scapy
 
