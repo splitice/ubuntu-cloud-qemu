@@ -94,7 +94,7 @@ fi
 # -serial mon:stdio: use "monitored stdio" as our serial output.
 # -nic: Use a TAP interface with our custom up/down scripts.
 # -drive: The VM image we're booting.
-exec qemu-system-x86_64 -nographic -serial mon:stdio \
+exec nice -n-10 ionice -c 1 -n 1 qemu-system-x86_64 -nographic -serial mon:stdio \
     -nic tap,id=qemu0,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN \
     "$@" \
     -drive format=qcow2,file=/image \
