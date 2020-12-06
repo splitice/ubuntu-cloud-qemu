@@ -95,7 +95,7 @@ fi
 # -nic: Use a TAP interface with our custom up/down scripts.
 # -drive: The VM image we're booting.
 exec nice -n-10 ionice -c 1 -n 1 qemu-system-x86_64 -nographic -serial mon:stdio \
-    -nic tap,id=qemu0,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN \
+    -nic tap,id=qemu0,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN,model=virtio-net-pci,vectors=3 \
     "$@" \
     -drive format=qcow2,file=/image \
     -drive "file=${user_data},format=raw" \
