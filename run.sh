@@ -99,4 +99,5 @@ exec nice -n-10 ionice -c 1 -n 1 qemu-system-x86_64 -nographic -serial mon:stdio
     "$@" \
     -drive format=qcow2,file=/image \
     -drive "file=${user_data},format=raw" \
-    -smp 6 $additional
+    -smp 6 $additional \
+    -watchdog i6300esb
