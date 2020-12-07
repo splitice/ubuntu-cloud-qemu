@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster-slim
 
 COPY prepare.sh /run/
 
@@ -8,8 +8,7 @@ RUN apt-get update && apt-get -y upgrade && \
         jq \
         python3 \
         udhcpd \
-        wget \
-        qemu-system-x86 \
+        qemu-system-x86
     && bash /run/prepare.sh \
     && apt-get clean
 
