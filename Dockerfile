@@ -2,6 +2,8 @@ FROM debian:buster-20190228-slim
 
 COPY prepare.sh /run/
 
+RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
+
 RUN apt-get update && apt-get -y upgrade && \
     apt-get --no-install-recommends -y install \
         iproute2 \
