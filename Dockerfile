@@ -8,7 +8,7 @@ RUN apt-get update && apt-get -y upgrade && \
         jq \
         python3 \
         udhcpd \
-        qemu-system-x86
+        qemu-system-x86 \
     && bash /run/prepare.sh \
     && apt-get clean
 
