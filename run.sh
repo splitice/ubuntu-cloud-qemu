@@ -20,7 +20,7 @@ if [[ "$VNIP2" == "" ]]; then
   VMIP2=$(echo $VMIP | sed 's/[0-9]\+\.\([0-9]\+\)$/1.\1/')
 fi
 if [[ "$VNIP2" == "" ]]; then
-  VMIP3=$(echo $VMIP | sed 's/[0-9]\+\.\([0-9]\+\)$/1.\1/')
+  VMIP3=$(echo $VMIP | sed 's/[0-9]\+\.\([0-9]\+\)$/2.\1/')
 fi
 
 
@@ -122,9 +122,9 @@ fi
 # -nic: Use a TAP interface with our custom up/down scripts.
 # -drive: The VM image we're booting.
 exec nice -n-10 ionice -c 1 -n 1 qemu-system-x86_64 -nographic -serial mon:stdio \
-    -netdev tap,id=qemu0,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu0,mq=on,vectors=9 \
-    -netdev tap,id=qemu1,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu1,mq=on,vectors=9 \
-    -netdev tap,id=qemu2,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu2,mq=on,vectors=9 \
+    -netdev tap,id=qemu0,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu0,mq=on,vectors=9,packed=off \
+    -netdev tap,id=qemu1,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu1,mq=on,vectors=9,packed=off \
+    -netdev tap,id=qemu2,vhost=on,queues=6,script=$QEMU_IFUP,downscript=$QEMU_IFDOWN -device virtio-net-pci,netdev=qemu2,mq=on,vectors=9,packed=off \
     "$@" \
     -drive format=qcow2,file=/image \
     -drive "file=${user_data},format=raw" \
