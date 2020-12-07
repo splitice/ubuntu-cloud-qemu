@@ -9,8 +9,8 @@ RUN apt-get update && apt-get -y upgrade && \
         iproute2 \
         jq \
         python3 \
-        qemu-system-x86 \
         udhcpd \
+    && apt-get --no-install-recommends -y -t buster-backports install "qemu-system-x86" \
     && bash /run/prepare.sh \
     && apt-get clean
 
