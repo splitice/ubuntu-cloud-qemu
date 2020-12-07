@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y upgrade && \
         jq \
         python3 \
         udhcpd \
-    && apt-get --no-install-recommends -y -t buster-backports install "qemu-system-x86" \
+    && apt-get --no-install-recommends -y --fix-broken -t buster-backports install "qemu-system-x86" \
     && bash /run/prepare.sh \
     && apt-get clean
 
