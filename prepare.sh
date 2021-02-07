@@ -8,7 +8,7 @@ pip install scapy
 
 # This is already in qcow2 format.
 if [ ! -f "/image" ]; then
-  wget "https://cloud.debian.org/images/cloud/buster/20200928-407/debian-10-generic-amd64-20200928-407.qcow2" -O /image
+  wget "https://cloud.debian.org/images/cloud/buster/20210201-535/debian-10-generic-amd64-20210201-535.qcow2" -O /image
 
   # sparse resize: does not use any extra space, just allows the resize to happen later on.
   # https://superuser.com/questions/1022019/how-to-increase-size-of-an-ubuntu-cloud-image
